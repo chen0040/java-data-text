@@ -6,6 +6,16 @@ Package provides java implementation of various text preprocessing methods such 
   
 # Install
 
+Add the following dependency to your POM file:
+
+```xml
+<dependency>
+  <groupId>com.github.chen0040</groupId>
+  <artifactId>java-data-text</artifactId>
+  <version>1.0.1</version>
+</dependency>
+```
+
 # Usage
 
 To use any text filter, just create a new text filter and then calls its filter(...) method.
@@ -43,5 +53,38 @@ for (int i = 0; i < words.size(); ++i)
 
 ### StopWord Removal
 
+```java
+import com.github.chen0040.data.text.TextFilter;
+import com.github.chen0040.data.text.StopWordRemoval;
 
+StopWordRemoval filter = new StopWordRemoval();
+
+filter.setRemoveNumbers(false);
+filter.setRemoveIpAddress(false);
+
+InputStream inputStream = FileUtils.getResource("documents.txt");
+BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+String content = reader.lines().collect(Collectors.joining("\n"));
+reader.close();
+
+List<String> before = BasicTokenizer.doTokenize(content);
+List<String> after = filter.filter(before);
+```
+
+### Punctuation Filtering
+
+```java
+import com.github.chen0040.data.text.TextFilter;
+import com.github.chen0040.data.text.PunctuationFilter;
+
+TextFilter filter = new PunctuationFilter();
+
+InputStream inputStream = FileUtils.getResource("documents.txt");
+BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+String content = reader.lines().collect(Collectors.joining("\n"));
+reader.close();
+
+List<String> before = BasicTokenizer.doTokenize(content);
+List<String> after = filter.filter(before);
+```
 
