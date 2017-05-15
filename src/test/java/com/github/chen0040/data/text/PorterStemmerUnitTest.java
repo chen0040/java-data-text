@@ -3,7 +3,7 @@ package com.github.chen0040.data.text;
 
 import org.testng.annotations.Test;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -13,9 +13,8 @@ import java.util.List;
 public class PorterStemmerUnitTest {
     @Test
     public void testBasic(){
-        PorterStemmer stemmer = new PorterStemmer();
+        TextFilter filter = new PorterStemmer();
 
-        /// Step 1:
         ///     caresses  ->  caress
         ///     ponies    ->  poni
         ///     ties      ->  ti
@@ -30,30 +29,24 @@ public class PorterStemmerUnitTest {
         ///     milling   ->  mill
         ///     messing   ->  mess
         ///     meetings  ->  meet
-        List<String> words = new ArrayList<>();
-        String[] x = new String[]
-        {
-            "caresses",
-                    "ponies",
-                    "ties",
-                    "caress",
-                    "cats",
-                    "feed",
-                    "agreed",
-                    "disabled",
-                    "matting",
-                    "mating",
-                    "meeting",
-                    "milling",
-                    "messing",
-                    "meetings"
-        };
+        List<String> words = Arrays.asList(
+                "caresses",
+                "ponies",
+                "ties",
+                "caress",
+                "cats",
+                "feed",
+                "agreed",
+                "disabled",
+                "matting",
+                "mating",
+                "meeting",
+                "milling",
+                "messing",
+                "meetings"
+        );
 
-        for(int i=0; i < x.length; ++i){
-            words.add(x[i]);
-        }
-
-        List<String> result = stemmer.filter(words);
+        List<String> result = filter.filter(words);
         for (int i = 0; i < words.size(); ++i)
         {
             System.out.println(String.format("%s -> %s", words.get(i), result.get(i)));

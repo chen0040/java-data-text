@@ -8,4 +8,40 @@ Package provides java implementation of various text preprocessing methods such 
 
 # Usage
 
+To use any text filter, just create a new text filter and then calls its filter(...) method.
+
+### Porter Stemmer
+
+```java
+import com.github.chen0040.data.text.TextFilter;
+import com.github.chen0040.data.text.PorterStemmer;
+
+TextFilter stemmer = new PorterStemmer();
+List<String> words = Arrays.asList(
+        "caresses",
+        "ponies",
+        "ties",
+        "caress",
+        "cats",
+        "feed",
+        "agreed",
+        "disabled",
+        "matting",
+        "mating",
+        "meeting",
+        "milling",
+        "messing",
+        "meetings"
+);
+
+List<String> result = stemmer.filter(words);
+for (int i = 0; i < words.size(); ++i)
+{
+    System.out.println(String.format("%s -> %s", words.get(i), result.get(i)));
+}
+```
+
+### StopWord Removal
+
+
 
