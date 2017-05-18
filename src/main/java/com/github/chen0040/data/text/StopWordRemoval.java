@@ -5,6 +5,8 @@ import sun.net.util.IPAddressUtil;
 
 import java.io.Serializable;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class StopWordRemoval implements Serializable, TextFilter {
@@ -14,6 +16,7 @@ public class StopWordRemoval implements Serializable, TextFilter {
     private Set<String> stopWords = new HashSet<>();
     private boolean removeNumbers = true;
     private boolean removeIPAddress = true;
+    private boolean removeXmlTag = false;
 
     public void setRemoveNumbers(boolean removeNumbers) {
         this.removeNumbers = removeNumbers;
@@ -31,10 +34,19 @@ public class StopWordRemoval implements Serializable, TextFilter {
         return removeIPAddress;
     }
 
+    public boolean getRemoveXmlTag() {
+        return removeXmlTag;
+    }
+
+    public void setRemoveXmlTag(boolean removed){
+        this.removeXmlTag = removed;
+    }
+
     public StopWordRemoval makeCopy() {
         StopWordRemoval clone = new StopWordRemoval();
         clone.removeNumbers = this.removeNumbers;
         clone.removeIPAddress = this.removeIPAddress;
+        clone.removeXmlTag = this.removeXmlTag;
         for (String w : stopWords) {
             clone.stopWords.add(w);
         }
@@ -607,6 +619,9 @@ public class StopWordRemoval implements Serializable, TextFilter {
         if(removeIPAddress && isIPAddress(word)){
             return false;
         }
+        if(removeXmlTag && isXmlTag(word)){
+            return false;
+        }
         return !stopWords.contains(word);
     }
 
@@ -621,6 +636,10 @@ public class StopWordRemoval implements Serializable, TextFilter {
             return true;
         }
         return false;
+    }
+
+    private boolean isXmlTag(String word) {
+        return word.startsWith("<") && word.endsWith(">");
     }
 
     public List<String> filter(List<String> words) {

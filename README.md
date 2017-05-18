@@ -4,6 +4,7 @@ Package provides java implementation of various text preprocessing methods such 
 
 [![Build Status](https://travis-ci.org/chen0040/java-data-text.svg?branch=master)](https://travis-ci.org/chen0040/java-data-text) [![Coverage Status](https://coveralls.io/repos/github/chen0040/java-data-text/badge.svg?branch=master)](https://coveralls.io/github/chen0040/java-data-text?branch=master) [![Documentation Status](https://readthedocs.org/projects/java-data-text/badge/?version=latest)](http://java-data-text.readthedocs.io/en/latest/?badge=latest)
   
+
 # Install
 
 Add the following dependency to your POM file:
@@ -12,9 +13,22 @@ Add the following dependency to your POM file:
 <dependency>
   <groupId>com.github.chen0040</groupId>
   <artifactId>java-data-text</artifactId>
-  <version>1.0.2</version>
+  <version>1.0.3</version>
 </dependency>
 ```
+
+# Features
+
+* Porter Stemmer
+* Punctuation Filter
+* Stop Word Removal
+
+    * Xml Tag Removal
+    * Ip Address Removal
+    * Number Removal
+
+* English Tokenizer
+
 
 # Usage
 
@@ -61,6 +75,7 @@ StopWordRemoval filter = new StopWordRemoval();
 
 filter.setRemoveNumbers(false);
 filter.setRemoveIpAddress(false);
+filter.setRemoveXmlTag(false);
 
 InputStream inputStream = FileUtils.getResource("documents.txt");
 BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
